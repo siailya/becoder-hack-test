@@ -1,5 +1,12 @@
 # Команда «Криминальное тестирование»
 
+---
+Алексей - alex1976212@gmail.com  
+Аня - anka98-98@mail.ru  
+Илья - sia.ilya.dev@gmail.com  
+Юля - jyliakuz@gmail.com  
+---
+
 ### Задача 1:
 Гугл Документ с решением: https://docs.google.com/document/d/1CjisPjGH6Po-C3AerLcuxrecLBsaoHQREb0c1TrRDSQ/edit?usp=sharing
 
