@@ -40,7 +40,7 @@ else:
 
 
 driver = webdriver.Chrome()
-driver.get(f"file:///{file_to_process}")
+driver.get(f"file:///{file_to_process.replace('file:///', '')}")
 
 # Получаем все stylesheets в документе
 stylesheets = driver.find_elements(By.CSS_SELECTOR, 'link[rel="stylesheet"]')
@@ -68,7 +68,11 @@ for stylesheet in stylesheets:
         # Обратно выключаем stylesheet (чтобы не возникало конфликтов)
         driver.execute_script(get_script_to_toggle_stylesheet(short_name, 'true'))
 
-# Выводим имена неправильных stylesheets
-print("Invalid stylesheets:", *foreign_stylesheets)
+if len(foreign_stylesheets) > 0:
+    # Выводим имена неправильных stylesheets
+    print("Test failed!\nInvalid stylesheets:", *foreign_stylesheets)
+else:
+    print("Test passed!")
+
 
 driver.close()
