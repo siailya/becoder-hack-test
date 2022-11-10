@@ -68,7 +68,7 @@ for stylesheet in stylesheets:
         # Обратно выключаем stylesheet (чтобы не возникало конфликтов)
         driver.execute_script(get_script_to_toggle_stylesheet(short_name, 'true'))
 
-driver.close()
-
 # Выводим имена неправильных stylesheets
 print("Invalid stylesheets:", *foreign_stylesheets)
+
+driver.close()
