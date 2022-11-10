@@ -1,6 +1,7 @@
 # Команда «Криминальное тестирование»
 
 ### Задача 1:
+Гугл Документ с решением: https://docs.google.com/document/d/1CjisPjGH6Po-C3AerLcuxrecLBsaoHQREb0c1TrRDSQ/edit?usp=sharing
 
 ### Задача 2:
 Представляет из себя автотест на python + Selenium
