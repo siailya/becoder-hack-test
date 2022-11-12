@@ -11,44 +11,44 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class NameTest {
     public static WebDriver driver;
     public static Page page;
-    //public static enum_bad_pronoun enum_bad;
-
 
 
     @BeforeClass
     public static void setup() {
         System.setProperty("webdriver.chrome.driver", "chromedriver107.exe");
         driver = new ChromeDriver();
-        page=new Page(driver);
+        page = new Page(driver);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get("https://javarush.ru/");
+
+//        TODO: Р—Р°РїСЂРѕСЃРёС‚СЊ РєР°РєРѕР№ СЃР°Р№С‚ РїСЂРѕС‚РµСЃС‚РёС‚СЊ (Р»РёР±Рѕ РІС‹РЅРµСЃС‚Рё РІ РєРѕРЅС„РёРі РєР°РєРѕР№-РЅРёР±СѓРґСЊ, С…Р·)
+        driver.get("https://yandex.ru");
     }
+
     @AfterClass
     public static void clean() {
         driver.close();
     }
 
     @Test
-    public void textTest(){
-        String stroka= "o";
-        String [] goodPronoun={"я", "мы", "меня", "нас", "нами", "мне ","нам", "мной",
- "Я", "Мы", "Меня", "Нас", "Нами", "Мне ","Нам", "Мной"};
-        String [] badPronoun ={"ты", "вы", "тебя", "вас", "тебе", "вам",
-                "тобой", "вами", "он", "оно", "она", "они",
-                "ее", "их", "её", "ему", "ей", "им", "его",
-                "ею", "ими", "нем", "нём", "ней", "них", "Ты", "Вы", "Тебя",
-                "Вас", "Тебе", "Вам",
-                "Тобой", "Вами", "Он", "Оно", "Она", "Они",
-                "Ее", "Их", "Её", "Ему", "Ей", "Им", "Его",
-                "Ею", "Ими", "Нем", "Нём", "Ней", "Них"};
-        //page.AcceptClick();
-        stroka=page.getText();
+    public void textTest() {
+        String stroka;
 
-        String[] strokaArray = stroka.split("\\r?\\n");
+        String[] goodPronoun = {
+                "СЏ", "РјС‹", "РјРµРЅСЏ", "РЅР°СЃ", "РЅР°РјРё", "РјРЅРµ ", "РЅР°Рј", "РјРЅРѕР№"
+        };
+        String[] badPronoun = {
+                "С‚С‹", "РІС‹", "С‚РµР±СЏ", "РІР°СЃ", "С‚РµР±Рµ", "РІР°Рј",
+                "С‚РѕР±РѕР№", "РІР°РјРё", "РѕРЅ", "РѕРЅРѕ", "РѕРЅР°", "РѕРЅРё",
+                "РµРµ", "РёС…", "РµС‘", "РµРјСѓ", "РµР№", "РёРј", "РµРіРѕ",
+                "РµСЋ", "РёРјРё", "РЅРµРј", "РЅС‘Рј", "РЅРµР№", "РЅРёС…"
+        };
+
+        stroka = page.getText();
         String[] allWords = stroka.toLowerCase().split("\\s+");
-        //System.out.println(stroka);
-        int count=0;
-        int sadCount=0;
+
+        int count = 0;
+        int sadCount = 0;
+
         for (String word : allWords) {
             if (Arrays.asList(goodPronoun).contains(word)) {
                 count++;
@@ -56,45 +56,11 @@ public class NameTest {
                 sadCount++;
             }
         }
-        /*or (String item : strokaArray) {
-            //System.out.println(item);
-             String []  textArray = item.split(" ");
-             for(int i=0; i<textArray.length; i++){
-                 int countgood=0;
-                 int countbad=0;
-                 for (int j=0; j<goodPronoun.length;j++){
-                     if (textArray[i].equals(goodPronoun[j])){
-                         countgood+=1;
-                         break;
-                     }
-                 }
-                 if (countgood==0){
-                     for (int j=0; j<badPronoun.length; j++){
-                         if (textArray[i].equals(badPronoun[j])){
-                             countbad+=1;
-                             break;
-                         }
-                     }
-                 }
-                 sadCount+=countbad;
-                 count+=countgood;
-             }
-        }*/
+
+//        TODO: Р’Р°Р»РёС‚СЊ С‚РµСЃС‚ РµСЃР»Рё sadCount > count
+//        TODO: РљСЂР°СЃРёРІС‹Р№ РІС‹РІРѕРґ (С…РѕС‚СЏ Р±С‹ РїРѕРґРїРёСЃР°С‚СЊ РїСЂРё РІС‹РІРѕРґРµ РіРґРµ РєРѕР»-РІРѕ 1-РіРѕ Р»РёС†Р°, Р° РіРґРµ РѕСЃС‚Р°Р»СЊРЅС‹Рµ)
         System.out.println(count);
         System.out.println(sadCount);
-
     }
-    /*public static boolean findPronoun(String stroka){
-        stroka.toLowerCase();
-
-        String [] strokaArray=stroka.split(" ");
-        int bad_pronoun=0;
-        int good_pronoun =0;
-        for(int i=0; i<stroka.length(); i++){
-
-        }
-
-    }*/
-
 }
 
