@@ -1,27 +1,30 @@
 package com;
 
-import java.util.Arrays;
-import java.util.concurrent.TimeUnit;;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.util.Arrays;
+
 public class NameTest {
     public static WebDriver driver;
     public static Page page;
 
-
     @BeforeClass
     public static void setup() {
-        System.setProperty("webdriver.chrome.driver", "chromedriver107.exe");
+        System.setProperty("webdriver.chrome.driver", ConfProperties.getProperty("pathToChromeDriver"));
         driver = new ChromeDriver();
         page = new Page(driver);
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
-//        TODO: Запросить какой сайт протестить (либо вынести в конфиг какой-нибудь, хз)
-        driver.get("https://yandex.ru");
+        //Адрес страницы для тестирования прописывается в переменную userURL в resource/conf.properties
+        driver.get(ConfProperties.getProperty("userURL"));
+        try {
+            Thread.sleep(7000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @AfterClass
@@ -31,7 +34,7 @@ public class NameTest {
 
     @Test
     public void textTest() {
-        String stroka;
+        String line;
 
         String[] goodPronoun = {
                 "я", "мы", "меня", "нас", "нами", "мне ", "нам", "мной"
@@ -43,8 +46,8 @@ public class NameTest {
                 "ею", "ими", "нем", "нём", "ней", "них"
         };
 
-        stroka = page.getText();
-        String[] allWords = stroka.toLowerCase().split("\\s+");
+        line = page.getText();
+        String[] allWords = line.toLowerCase().split("\\s+");
 
         int count = 0;
         int sadCount = 0;
@@ -56,11 +59,16 @@ public class NameTest {
                 sadCount++;
             }
         }
-
-//        TODO: Валить тест если sadCount > count
-//        TODO: Красивый вывод (хотя бы подписать при выводе где кол-во 1-го лица, а где остальные)
-        System.out.println(count);
-        System.out.println(sadCount);
+        // Проверка кол-ва местоимений на сайте
+        if (sadCount > count) {  //Тест валится в том случае, если местоимений 2 и 3 лица больше местоимений 1 лица
+            Assert.fail("\nTest Failed\n" +
+                    "Number of personal pronouns of 1-person: " + count + "\n" +
+                    "Number of personal pronouns of 2 & 3 person: " + sadCount);
+        } else { //Тест пройден, если местоимений 1 лица больше местоимений 2 и 3 лица
+            System.out.println("Test passed");
+            System.out.println("Number of personal pronouns of 1-person: " + count);
+            System.out.println("Number of personal pronouns of 2 & 3 person: " + sadCount);
+        }
     }
 }
 

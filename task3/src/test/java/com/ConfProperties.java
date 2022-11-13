@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
+//Класс для обращения к переменным из файла conf.properties
 public class ConfProperties {
     protected static FileInputStream fileInputStream;
     protected static Properties PROPERTIES;
